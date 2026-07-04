@@ -6,6 +6,21 @@ efficiency, and feature importance. Runs locally on macOS (tested on
 Apple Silicon M1) — no notebook or cloud environment required.
 
 ---
+**Project structure**
+
+```
+config.py            all tunable settings in one place
+utils.py             timing helper, dtype downcasting for memory efficiency
+data_loader.py       Kaggle download + load/merge transaction+identity tables
+preprocessing.py     missing-value handling, frequency encoding, train/val split
+models.py            model classes + base params + light random-search grids
+evaluate.py          custom random search, training/inference timing, scoring
+explain.py           SHAP summary plot + top-10 feature export for the best model
+main.py              orchestrates the full pipeline end to end
+requirements.txt     pinned dependency versions (arm64-compatible)
+setup.sh             one-shot macOS environment setup (libomp + venv + installs)
+outputs/             results_comparison.csv, shap_summary_plot.png, top10_features.csv
+```
 
 ## 1. Setup (macOS)
 
@@ -78,15 +93,6 @@ open outputs/
 ```
 Produces `results_comparison.csv`, `shap_summary_plot.png`, and
 `top10_features.csv`.
-
-### Troubleshooting reference
-- **`ModuleNotFoundError`** → venv isn't activated (`which python` should
-  show the venv path; if not, `source venv/bin/activate`).
-- **`libomp.dylib not found`** → `brew install libomp && brew link --overwrite libomp`.
-- **Seems stuck at "Fitting N folds..."** → it's not stuck, it's just quiet;
-  the custom search prints a line per candidate, so wait for those lines.
-- **`FileNotFoundError: train_transaction.csv`** → competition rules not
-  yet accepted on kaggle.com, or the download didn't finish.
 
 ---
 
@@ -229,19 +235,3 @@ but it does mean the absolute ROC-AUC/F1 numbers may be somewhat optimistic
 relative to true out-of-time performance.
 
 ---
-
-## 5. Project structure
-
-```
-config.py           all tunable settings in one place
-utils.py             timing helper, dtype downcasting for memory efficiency
-data_loader.py       Kaggle download + load/merge transaction+identity tables
-preprocessing.py     missing-value handling, frequency encoding, train/val split
-models.py            model classes + base params + light random-search grids
-evaluate.py          custom random search, training/inference timing, scoring
-explain.py            SHAP summary plot + top-10 feature export for the best model
-main.py               orchestrates the full pipeline end to end
-requirements.txt      pinned dependency versions (arm64-compatible)
-setup.sh               one-shot macOS environment setup (libomp + venv + installs)
-outputs/               results_comparison.csv, shap_summary_plot.png, top10_features.csv
-```
