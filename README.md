@@ -174,7 +174,7 @@ train/val split = 472,432 / 118,108 rows.
 
 ### Top 10 features (SHAP, best model = LightGBM)
 
-| Rank | Feature | Mean |SHAP value| |
+| Rank | Feature | Mean Absolute SHAP Value |
 |---|---|---|
 | 1 | `C13` | 0.3020 |
 | 2 | `TransactionAmt` | 0.2665 |
