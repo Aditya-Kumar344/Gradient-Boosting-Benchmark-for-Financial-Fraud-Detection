@@ -1,0 +1,4 @@
+Model,ROC-AUC,F1,Training Time (s),Inference Time (s)
+XGBoost,0.9667,0.6399,1360.12,0.4906
+LightGBM,0.9688,0.658,1205.6,3.0651
+CatBoost,0.9552,0.4627,2222.76,0.2694
